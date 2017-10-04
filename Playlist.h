@@ -9,6 +9,7 @@ class Playlist
 {
 private:
 	string name;
+	string songs;
 public:
 	Playlist();
 	Playlist(string _name);
