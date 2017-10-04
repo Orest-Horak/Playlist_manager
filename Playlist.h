@@ -8,7 +8,6 @@ using namespace std;
 class Playlist 
 {
 private:
-	string directory;
 	string name;
 public:
 	Playlist();

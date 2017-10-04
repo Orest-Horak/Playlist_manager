@@ -8,7 +8,6 @@ using namespace std;
 
 Playlist::Playlist() 
 {
-	directory.assign("c:\\");
 	name.assign("");
 }
 Playlist::Playlist(string _name) 

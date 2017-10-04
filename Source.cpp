@@ -8,7 +8,13 @@ using namespace std;
 
 void main()
 {
+	string directory= "c:\\";
+	string operation="";
+	do 
+	{
 
+		cin >> operation;
+	} while (operation != "exit");
 
 
 	system("pause");
