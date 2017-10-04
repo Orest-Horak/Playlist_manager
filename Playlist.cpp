@@ -9,9 +9,11 @@ using namespace std;
 Playlist::Playlist() 
 {
 	name.assign("");
+	songs.assign("");
 }
 Playlist::Playlist(string _name) 
 {
+	songs = "";
 	name.assign(_name);
 	fstream file(name);
 	file << "#EXTM3U /n" << endl;
