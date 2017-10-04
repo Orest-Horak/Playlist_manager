@@ -13,13 +13,40 @@ void main()
 	string operation="";
 	do 
 	{
+		
 		cout << directory << ' ';
 		getline(cin,operation);
 		if (operation.find("ls") == 0) 
 		{
 			ls(directory);
 		}
-		if (operation.find("exit") == 0)
+		else if (operation.find("cd") == 0) 
+		{
+			if (operation.find("..") == 3) 
+			{
+				if (directory.length() <= 4) 
+				{
+					cout << "Operations can't be performed" << endl;
+				}
+				else 
+				{
+					directory.erase((directory.substr(0,directory.length()-2)).rfind("\\")+1);
+				}
+			}
+			else if (operation.find("\\") == operation.length() - 2) 
+			{
+				directory += operation.substr(3, operation.length() - 2);
+			}
+			else if (operation.find(":\\") == 4) 
+			{
+				directory= operation.substr(3);
+			}
+			else
+			{
+				cout << "Uncorrect form!" << endl;
+			}
+		}
+		else if (operation.find("exit") == 0)
 		{
 		}
 		else 
@@ -40,7 +67,7 @@ void ls(string directory)
 	hFind = FindFirstFile(directory.c_str(), &ffd);
 	if (INVALID_HANDLE_VALUE == hFind)
 	{
-		cout << "We couldn't find such file" << endl;
+		cout << "We couldn't find such directory" << endl;
 	}
 	else
 	{
