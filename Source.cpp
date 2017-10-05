@@ -17,6 +17,7 @@ void main()
 	string operation="";
 	do 
 	{
+		
 		cout << directory << ' ';
 		getline(cin,operation);
 		if (operation.find("ls") == 0) 
