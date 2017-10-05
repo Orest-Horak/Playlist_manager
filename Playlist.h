@@ -14,5 +14,6 @@ public:
 	Playlist();
 	Playlist(string _name);
 	Playlist(string _directory, string _name);
+	void getSongs();
 	~Playlist();
 };
