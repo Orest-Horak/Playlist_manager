@@ -9,7 +9,11 @@ void ls(string directory);
 
 void main()
 {
+	/*Playlist A;*/
+
+
 	string directory= "c:\\";
+	
 	string operation="";
 	do 
 	{
@@ -46,8 +50,35 @@ void main()
 				cout << "Uncorrect form!" << endl;
 			}
 		}
+		else if (operation.find("create") == 0) 
+		{
+			if (operation.find("create_null") == 0) 
+			{
+				Playlist A(operation.substr(12));
+			}
+			else
+			{
+				Playlist A(directory, operation.substr(7));
+				A.getSongs();
+			}
+		}
+		else if (operation.find("add") == 0)
+		{
+		}
+		else if (operation.find("minus") == 0)
+		{
+		}
 		else if (operation.find("exit") == 0)
 		{
+		}
+		else if (operation.find("help") == 0)
+		{
+			cout << "ls" << endl;
+			cout << "cd .." << endl;
+			cout << "cd subfolder\\" << endl;
+			cout << "cd full_adress\\" << endl;
+			cout << "create <PlaylistName.m3u>" << endl;
+			cout << "create_null <PlaylistName.m3u>" << endl;
 		}
 		else 
 		{
