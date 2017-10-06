@@ -15,5 +15,8 @@ public:
 	Playlist(string _name);
 	Playlist(string _directory, string _name);
 	void getSongs();
+	void songsToFile(string _name);
+	Playlist& operator-=(string _file);
+	Playlist& operator-(string _file);
 	~Playlist();
 };

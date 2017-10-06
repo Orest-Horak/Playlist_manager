@@ -12,12 +12,13 @@ void main()
 	/*Playlist A;*/
 
 
-	string directory= "c:\\";
-	
+	string directory= "c:\\NVIDIA\\";
+	Playlist B(directory,"minus.m3u");
+	B.getSongs();
+
 	string operation="";
 	do 
 	{
-		
 		cout << directory << ' ';
 		getline(cin,operation);
 		if (operation.find("ls") == 0) 
@@ -67,6 +68,15 @@ void main()
 		}
 		else if (operation.find("minus") == 0)
 		{
+
+			if (operation.find("_file") == 5)
+			{
+				B -= operation.substr(11);
+			}
+			else
+			{
+				B - directory;
+			}
 		}
 		else if (operation.find("exit") == 0)
 		{
@@ -79,6 +89,8 @@ void main()
 			cout << "cd full_adress\\" << endl;
 			cout << "create <PlaylistName.m3u>" << endl;
 			cout << "create_null <PlaylistName.m3u>" << endl;
+			cout << "minus_file <full_adress.mp3>" << endl;
+			cout << "minus_folder" << endl;
 		}
 		else 
 		{
@@ -116,4 +128,4 @@ void ls(string directory)
 	}
 }
 
-SOmenthing
+/*string directory = "D:\\Steam\\steamapps\\common\\Deponia The Complete Journey\\bonus\\Soundtrack\\Goodbye Deponia\\German\\MP3";*/
