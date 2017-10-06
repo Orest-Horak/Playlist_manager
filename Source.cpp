@@ -127,4 +127,5 @@ void ls(string directory)
 		} while (FindNextFile(hFind, &ffd) != 0);
 	}
 }
+
 /*string directory = "D:\\Steam\\steamapps\\common\\Deponia The Complete Journey\\bonus\\Soundtrack\\Goodbye Deponia\\German\\MP3";*/
