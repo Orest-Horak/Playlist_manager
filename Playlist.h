@@ -17,6 +17,10 @@ public:
 	void getSongs();
 	void songsToFile(string _name);
 	Playlist& operator-=(string _file);
-	Playlist& operator-(string _file);
+	Playlist& operator-(string _directory);
+	Playlist& operator-=(const Playlist& ob);
+	Playlist& operator+=(string _file);
+	Playlist& operator+(string _directory);
+	Playlist& operator+=(const Playlist& ob);
 	~Playlist();
 };

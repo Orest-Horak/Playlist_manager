@@ -9,10 +9,9 @@ void ls(string directory);
 
 void main()
 {
-	/*Playlist A;*/
-
 
 	string directory= "c:\\NVIDIA\\";
+	Playlist C(directory, "minus2.m3u");
 	Playlist B(directory,"minus.m3u");
 	B.getSongs();
 
@@ -63,8 +62,20 @@ void main()
 				A.getSongs();
 			}
 		}
-		else if (operation.find("add") == 0)
+		else if (operation.find("plus") == 0)
 		{
+			if (operation.find("_file") == 4)
+			{
+				B += operation.substr(11);
+			}
+			else if (operation.find("_playlist") == 4)
+			{
+				B += C;
+			}
+			else
+			{
+				B + directory;
+			}
 		}
 		else if (operation.find("minus") == 0)
 		{
@@ -72,6 +83,10 @@ void main()
 			if (operation.find("_file") == 5)
 			{
 				B -= operation.substr(11);
+			}
+			else if(operation.find("_playlist") == 5)
+			{
+				B -= C;
 			}
 			else
 			{
@@ -89,8 +104,12 @@ void main()
 			cout << "cd full_adress\\" << endl;
 			cout << "create <PlaylistName.m3u>" << endl;
 			cout << "create_null <PlaylistName.m3u>" << endl;
+			cout << "plus_file <full_adress.mp3>" << endl;
+			cout << "plus_folder" << endl;
+			cout << "plus_playlist" << endl;
 			cout << "minus_file <full_adress.mp3>" << endl;
 			cout << "minus_folder" << endl;
+			cout << "minus_playlist" << endl;
 		}
 		else 
 		{

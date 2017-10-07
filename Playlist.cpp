@@ -112,6 +112,92 @@ Playlist& Playlist:: operator -(string _directory)
 	return *this;
 
 }
+Playlist& Playlist:: operator-=(const Playlist& ob) 
+{
+	int posi = 0;
+	do
+	{
+		string song = ob.songs.substr(posi, songs.find(";", posi) - posi);
+
+		if (songs.find(song) != string::npos)
+		{
+			songs.erase(songs.find(song), song.length() + 1);
+		}
+
+		posi = ob.songs.find(";", posi) + 1;
+	} while (ob.songs.find(";", posi) != string::npos);
+
+	songsToFile(name);
+
+	return *this;
+}
+Playlist& Playlist::operator+=(string _file)
+{
+
+	if (songs.find(_file) == string::npos)
+	{
+		(songs += _file) += ";";
+	}
+	songsToFile(name);
+
+	return *this;
+}
+Playlist& Playlist::operator+(string _directory)
+{
+	WIN32_FIND_DATA ffd;
+	HANDLE hFind = INVALID_HANDLE_VALUE;
+	_directory += "\\*";
+	hFind = FindFirstFile(_directory.c_str(), &ffd);
+	if (INVALID_HANDLE_VALUE == hFind)
+	{
+		cout << "We couldn't find such directory" << endl;
+	}
+	else
+	{
+		char buffer[260];
+		do
+		{
+			string FileName;
+			strcpy(buffer, ffd.cFileName);
+			FileName.assign(buffer);
+			if (FileName.find(".mp3") != string::npos)
+			{
+				string help = _directory;
+				help.pop_back();
+				help.pop_back();
+				if (songs.find(help += FileName) == string::npos)
+				{
+					(songs += help) += ";";
+				}
+			}
+
+		} while (FindNextFile(hFind, &ffd) != 0);
+	}
+
+
+	songsToFile(name);
+
+	return *this;
+}
+Playlist& Playlist::operator+=(const Playlist& ob)
+{
+	int posi = 0;
+	do
+	{
+		string song = ob.songs.substr(posi, songs.find(";", posi) - posi);
+
+		if (songs.find(song) == string::npos)
+		{
+			(songs += song) += ";";
+		}
+
+		posi = ob.songs.find(";", posi) + 1;
+	} while (ob.songs.find(";", posi) != string::npos);
+
+	songsToFile(name);
+
+	return *this;
+}
 void Playlist::songsToFile(string _name)
 {
 	fstream file;
