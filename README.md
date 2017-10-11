@@ -1,37 +1,20 @@
-## Welcome to GitHub Pages
 
-You can use the [editor on GitHub](https://github.com/orko98/Playlist_manager/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+Playlist Manager
+=============================
+### Another playlist manager created using C++. The easiest program to use among all you could have seen today since there is no need of installing any additional software or reading all these complicated READMEs, especially this one.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+-----------------------------------------------------------------------------------------------------------------------------------
+#### Playlist Manager merges the songs of selected playlists into one view, allowing users to easily add and remove songs from several playlists. This program is aimed at the user being able to create on his device a playlist based on mp3 files in a convenient place. The user can create, edit, insert songs into, remove songs from, and print the playlist. User can create an empty playlist as well.
 
-### Markdown
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
 
-```markdown
-Syntax highlighted code block
 
-# Header 1
-## Header 2
-### Header 3
+## **Contributors**
 
-- Bulleted
-- List
+####	•	Mykola Krainyk - Team-leading work 
+####	•	Victor Hanyk - Decisive work
+####	•	Orest Gorak- Very important work
+####	•	Vadym Pyshnyak - Crucial work
+####	•	Lukyana Kiral’ - Pointless work
 
-1. Numbered
-2. List
 
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/orko98/Playlist_manager/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
