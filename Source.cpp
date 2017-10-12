@@ -11,8 +11,8 @@ void main()
 {
 
 	string directory= "c:\\NVIDIA\\";
-	Playlist C(directory, "minus2.m3u");
-	Playlist B(directory,"minus.m3u");
+	Playlist C(directory, "minus2");
+	Playlist B(directory,"minus");
 	B.getSongs();
 
 	string operation="";
@@ -26,6 +26,24 @@ void main()
 		}
 		else if (operation.find("cd") == 0) 
 		{
+			if (operation.find(":\\") == 4 || operation.find("\\") == operation.length() - 2)
+			{
+				string buffer = "";
+				if (operation.find(":\\") != 4)
+				{
+					buffer = directory;
+				}
+				WIN32_FIND_DATA ffd;
+				HANDLE hFind = INVALID_HANDLE_VALUE;
+				buffer += operation.substr(3, operation.length() - 4);
+				buffer += "\\*";
+				hFind = FindFirstFile(buffer.c_str(), &ffd);
+				if (INVALID_HANDLE_VALUE == hFind)
+				{
+					cout << "We couldn't find such directory" << endl;
+					continue;
+				}
+			}
 			if (operation.find("..") == 3) 
 			{
 				if (directory.length() <= 4) 
@@ -37,13 +55,13 @@ void main()
 					directory.erase((directory.substr(0,directory.length()-2)).rfind("\\")+1);
 				}
 			}
+			else if (operation.find(":\\") == 4)
+			{
+				directory = operation.substr(3,operation.length()-4);
+			}
 			else if (operation.find("\\") == operation.length() - 2) 
 			{
-				directory += operation.substr(3, operation.length() - 2);
-			}
-			else if (operation.find(":\\") == 4) 
-			{
-				directory= operation.substr(3);
+				directory += operation.substr(3, operation.length() - 4);
 			}
 			else
 			{
@@ -64,7 +82,7 @@ void main()
 		}
 		else if (operation.find("plus") == 0)
 		{
-			if (operation.find("_file") == 4)
+			if (operation.find("_file") == 4 && operation.find(".mp3") != string::npos)
 			{
 				B += operation.substr(11);
 			}
@@ -79,7 +97,6 @@ void main()
 		}
 		else if (operation.find("minus") == 0)
 		{
-
 			if (operation.find("_file") == 5)
 			{
 				B -= operation.substr(11);
@@ -100,10 +117,10 @@ void main()
 		{
 			cout << "ls" << endl;
 			cout << "cd .." << endl;
-			cout << "cd subfolder\\" << endl;
-			cout << "cd full_adress\\" << endl;
-			cout << "create <PlaylistName.m3u>" << endl;
-			cout << "create_null <PlaylistName.m3u>" << endl;
+			cout << "cd subfolder\\\\" << endl;
+			cout << "cd full_adress\\\\" << endl;
+			cout << "create <PlaylistName>" << endl;
+			cout << "create_null <PlaylistName>" << endl;
 			cout << "plus_file <full_adress.mp3>" << endl;
 			cout << "plus_folder" << endl;
 			cout << "plus_playlist" << endl;

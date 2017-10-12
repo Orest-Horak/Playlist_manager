@@ -6,22 +6,22 @@
 using namespace std;
 
 
-Playlist::Playlist() 
+Playlist:: Playlist() 
 {
 	name.assign("");
 	songs.assign("");
 }
-Playlist::Playlist(string _name) 
+Playlist:: Playlist(string _name) 
 {
 	songs = "";
-	name.assign(_name);
+	name.assign(_name+".m3u");
 	fstream file(name);
 	file << "#EXTM3U \n" << endl;
 	file.close();
 }
-Playlist::Playlist(string _directory, string _name)
+Playlist:: Playlist(string _directory, string _name)
 {
-	name.assign(_name);
+	name.assign(_name + ".m3u");
 	fstream file;
 	file.open(name, fstream::out);
 	file << "#EXTM3U \n" << endl;
@@ -48,6 +48,7 @@ Playlist::Playlist(string _directory, string _name)
 				file << "#EXTINF: ";
 				file.close();
 				char artist[30];
+				help.pop_back();
 				help.pop_back();
 				fstream test(help+=FileName);
 				test.seekg(-95, test.end);
@@ -95,11 +96,11 @@ Playlist& Playlist:: operator -(string _directory)
 			FileName.assign(buffer);
 			if (FileName.find(".mp3") != string::npos)
 			{
-				string help = _directory;
-				help.pop_back();
-				if (songs.find(help+=FileName) != string::npos)
+				string directoryBuffer = _directory;
+				directoryBuffer.pop_back();
+				if (songs.find(directoryBuffer+=FileName) != string::npos)
 				{
-					songs.erase(songs.find(help), help.length() + 1);
+					songs.erase(songs.find(directoryBuffer), directoryBuffer.length() + 1);
 				}
 			}
 
@@ -114,24 +115,24 @@ Playlist& Playlist:: operator -(string _directory)
 }
 Playlist& Playlist:: operator-=(const Playlist& ob) 
 {
-	int posi = 0;
+	int position = 0;
 	do
 	{
-		string song = ob.songs.substr(posi, songs.find(";", posi) - posi);
+		string song = ob.songs.substr(position, songs.find(";", position) - position);
 
 		if (songs.find(song) != string::npos)
 		{
 			songs.erase(songs.find(song), song.length() + 1);
 		}
 
-		posi = ob.songs.find(";", posi) + 1;
-	} while (ob.songs.find(";", posi) != string::npos);
+		position = ob.songs.find(";", position) + 1;
+	} while (ob.songs.find(";", position) != string::npos);
 
 	songsToFile(name);
 
 	return *this;
 }
-Playlist& Playlist::operator+=(string _file)
+Playlist& Playlist:: operator+=(string _file)
 {
 
 	if (songs.find(_file) == string::npos)
@@ -142,7 +143,7 @@ Playlist& Playlist::operator+=(string _file)
 
 	return *this;
 }
-Playlist& Playlist::operator+(string _directory)
+Playlist& Playlist:: operator+(string _directory)
 {
 	WIN32_FIND_DATA ffd;
 	HANDLE hFind = INVALID_HANDLE_VALUE;
@@ -162,12 +163,12 @@ Playlist& Playlist::operator+(string _directory)
 			FileName.assign(buffer);
 			if (FileName.find(".mp3") != string::npos)
 			{
-				string help = _directory;
-				help.pop_back();
-				help.pop_back();
-				if (songs.find(help += FileName) == string::npos)
+				string directoryBuffer = _directory;
+				directoryBuffer.pop_back();
+				directoryBuffer.pop_back();
+				if (songs.find(directoryBuffer += FileName) == string::npos)
 				{
-					(songs += help) += ";";
+					(songs += directoryBuffer) += ";";
 				}
 			}
 
@@ -179,64 +180,63 @@ Playlist& Playlist::operator+(string _directory)
 
 	return *this;
 }
-Playlist& Playlist::operator+=(const Playlist& ob)
+Playlist& Playlist:: operator+=(const Playlist& ob)
 {
-	int posi = 0;
+	int position = 0;
 	do
 	{
-		string song = ob.songs.substr(posi, songs.find(";", posi) - posi);
+		string song = ob.songs.substr(position, songs.find(";", position) - position);
 
 		if (songs.find(song) == string::npos)
 		{
 			(songs += song) += ";";
 		}
 
-		posi = ob.songs.find(";", posi) + 1;
-	} while (ob.songs.find(";", posi) != string::npos);
+		position = ob.songs.find(";", position) + 1;
+	} while (ob.songs.find(";", position) != string::npos);
 
 	songsToFile(name);
 
 	return *this;
 }
-void Playlist::songsToFile(string _name)
+void Playlist:: songsToFile(string _name)
 {
 	fstream file;
 	file.open(_name, fstream::out);
 	file << "#EXTM3U \n" << endl;
 
-	int posi = 0;
+	int position = 0;
 	do
 	{
-		string help = songs.substr(posi, songs.find(";", posi) - posi + 1);
-		if (help.find(".mp3") != string::npos)
+		string path_to_song = songs.substr(position, songs.find(";", position) - position);
+		if (path_to_song.find(".mp3") != string::npos)
 		{
 			file << "#EXTINF: ";
 			file.close();
 			char artist[30];
-			help.pop_back();
-			fstream test(help);
+			fstream test(path_to_song);
 			test.seekg(-95, test.end);
 			test.read(artist, 30);
 			test.close();
 			file.open(name, fstream::app);
-			file << "artist " << artist << endl << help << endl << endl;
+			file << "artist " << artist << endl << path_to_song << endl << endl;
 		}
 
-		posi = songs.find(";", posi) + 1;
-	} while (songs.find(";", posi) != string::npos);
+		position = songs.find(";", position) + 1;
+	} while (songs.find(";", position) != string::npos);
 
 	file.close();
 }
-void Playlist::getSongs() 
+void Playlist:: getSongs() 
 {
-	int posi = 0;
+	int position = 0;
 	do 
 	{
-		cout << songs.substr(posi, songs.find(";", posi)-posi) << endl;
-		posi = songs.find(";", posi)+1;
-	} while (songs.find(";", posi) != string::npos);
+		cout << songs.substr(position, songs.find(";", position)-position) << endl;
+		position = songs.find(";", position)+1;
+	} while (songs.find(";", position) != string::npos);
 }
-Playlist::~Playlist() 
+Playlist:: ~Playlist() 
 {
 	_fcloseall();
 }
